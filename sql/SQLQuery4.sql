@@ -9,7 +9,7 @@ CREATE TABLE manufacturers(
 CREATE TABLE cars (
 	car_id int identity(1,2) primary key,
 	model varchar(15) not null,
-	color varchar(15) DEFAULT 'balck',
+	color varchar(15) DEFAULT 'black',
 	manufacturer int FOREIGN KEY REFERENCES manufacturers(manufacturer_id) not null,
 	manufacturer_date DATE DEFAULT getdate(),
 	license_num varchar(11) UNIQUE not null,
