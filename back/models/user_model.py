@@ -9,15 +9,15 @@ def get_all_users():
     with pyodbc.connect(connection_str) as connection:
         cursor = connection.cursor()
         query = "select * from users"
-        cursor.execute((query))
+        cursor.execute(query)
         return cursor.fetchall()
 
 
-def get_user_by_id(id):
+def get_user_by_id(user_id):
     with pyodbc.connect(connection_str) as connection:
         cursor = connection.cursor()
-        query = f"select * from users where user_id = '{id}'"
-        cursor.execute((query))
+        query = f"select * from users where user_id = '{user_id}'"
+        cursor.execute(query)
         return cursor.fetchone()
 
 
@@ -72,7 +72,7 @@ def delete_user(user_id):
     with pyodbc.connect(connection_str) as connection:
         cursor = connection.cursor()
         query = f"delete from users where user_id = '{user_id}'"
-        cursor.execute((query))
+        cursor.execute(query)
         return {'status': 'success', 'message': 'User deleted successfully'}
 
 new_user = {

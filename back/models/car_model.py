@@ -9,15 +9,15 @@ def get_all_cars():
     with pyodbc.connect(connection_str) as connection:
         cursor = connection.cursor()
         query = "select * from cars"
-        cursor.execute((query))
+        cursor.execute(query)
         return cursor.fetchall()
 
 
-def get_car_by_id(id):
+def get_car_by_id(car_id):
     with pyodbc.connect(connection_str) as connection:
         cursor = connection.cursor()
-        query = f"select * from cars where car_id = '{id}'"
-        cursor.execute((query))
+        query = f"select * from cars where car_id = '{car_id}'"
+        cursor.execute(query)
         return cursor.fetchone()
 
 
@@ -66,7 +66,7 @@ def update_car(updated_car):
                 updated_car['car_id']
             )
             cursor.execute(update_query, values)
-            connection.execute()  # Commit the transaction
+            connection.execute()
             return {'status': 'success', 'message': 'Car updated successfully', 'updated_car': updated_car}
         else:
             return {'error': 'Car is undefined'}
@@ -76,7 +76,7 @@ def delete_car(car_id):
     with pyodbc.connect(connection_str) as connection:
         cursor = connection.cursor()
         query = f"delete from cars where car_id = '{car_id}'"
-        cursor.execute((query))
+        cursor.execute(query)
         return {'status': 'success', 'message': 'Car deleted successfully'}
 
 
