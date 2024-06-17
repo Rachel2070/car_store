@@ -27,6 +27,12 @@ def create_car(new_car):
         if new_car:
             if 'car_pic' not in new_car:
                 new_car['car_pic'] = 'NONE'
+            if 'color' not in new_car:
+                new_car['color'] = 'NONE'
+            if 'manufacturer_date' not in new_car:
+                new_car['manufacturer_date'] = 'NONE'
+            if 'num_seats' not in new_car:
+                new_car['num_seats'] = 'NONE'
             query = """INSERT INTO cars (model, color, manufacturer, manufacturer_date, license_num, price, num_seats, car_pic) 
                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)"""
             values = (
@@ -48,7 +54,6 @@ def update_car(updated_car):
     with pyodbc.connect(connection_str) as connection:
         cursor = connection.cursor()
         if updated_car:
-            # Ensure car_pic has a default value if not provided
             if 'car_pic' not in updated_car:
                 updated_car['car_pic'] = 'NONE'
 
@@ -83,13 +88,12 @@ def delete_car(car_id):
 new_car = {
     'car_id': 2011,
     'model': 'Model d',
-    'color': 'Red',
     'manufacturer': 2,
     'manufacturer_date': '2023-01-15',
-    'license_num': 'dtr852C5423',
+    'license_num': 'dtr882C5423',
     'price': 30000,
     'num_seats': 5,
 }
 
-# result = update_car(new_car)
-# print(result)
+result = create_car(new_car)
+print(result)
