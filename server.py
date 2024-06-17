@@ -3,15 +3,11 @@ import smtplib
 from flask import Flask, render_template, request, redirect, url_for
 from models import user_model, car_model, manufacturer_model
 
-app = Flask(__name__)
-
-username = "Shira Levi"
-
+app = Flask(__name__, static_url_path='', static_folder='static', template_folder='template')
 
 @app.route('/')
 def root():
-    return render_template('../templates/index.html')
-
+    return render_template('index.html')
 
 # @app.route('/index.html', methods=['POST', 'GET'])
 # def home():
