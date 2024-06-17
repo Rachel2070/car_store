@@ -76,5 +76,5 @@ new_manufacturer = {
     'manufacturer_country': 'USA'
 }
 
-result = get_all_manufacturers()
-print(result)
+# result = get_all_manufacturers()
+# print(result)

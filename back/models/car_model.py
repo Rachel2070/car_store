@@ -95,5 +95,5 @@ new_car = {
     'num_seats': 5,
 }
 
-result = create_car(new_car)
-print(result)
+# result = create_car(new_car)
+# print(result)
