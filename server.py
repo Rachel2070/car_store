@@ -9,21 +9,45 @@ app = Flask(__name__, static_url_path='', static_folder='static', template_folde
 def root():
     return render_template('index.html')
 
-# @app.route('/index.html', methods=['POST', 'GET'])
-# def home():
-#     error = None
-#     if request.method == 'POST':
-#         global username
-#         username = request.form['username']
-#         if login_model.is_student(username):
-#             return redirect(url_for('schedule'))
-#         elif login_model.is_teacher(username):
-#             return redirect(url_for('teacher_post_task'))
-#         else:
-#             return redirect(url_for('error_login'))
-#     return render_template('index.html', error=error)
-#
-#
+@app.route('/index.html')
+def fullroot():
+    return render_template('index.html')
+
+
+@app.route('/login.html', methods=['POST', 'GET'])
+def login():
+    error = None
+    if request.method == 'POST':
+        global username
+        username = request.form['username']
+        password = request.form['password']
+        res = user_model.is_student(username, password)
+        # return redirect(url_for('login'))
+        # elif user_model.login(username):
+        #     return redirect(url_for('teacher_post_task'))
+        # else:
+        #     return redirect(url_for('error_login'))
+
+    return render_template('login.html', error=error)
+
+@app.route('/register.html', methods=['POST', 'GET'])
+def register():
+    error = None
+    if request.method == 'POST':
+        global username
+        username = request.form['username']
+        password = request.form['password']
+        res = user_model.is_student(username, password)
+        # return redirect(url_for('login'))
+        # elif user_model.login(username):
+        #     return redirect(url_for('teacher_post_task'))
+        # else:
+        #     return redirect(url_for('error_login'))
+
+    return render_template('register.html', error=error)
+
+
+
 # @app.route('/error_login.html')
 # def error_login():
 #     return render_template('error_login.html')
