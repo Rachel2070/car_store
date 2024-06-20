@@ -67,24 +67,30 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3 login-form">
             <h3 class="text-center">Register</h3>
-            <form>
+            {% if error %}
+                <div class="alert alert-danger">{{ error }}</div>
+                {% endif %}
+            <form method="POST" action="register.html">
                 <div class="form-group">
-                    <input type="text" class="form-control name-form" placeholder="Username *" required />
+                    <input name="username" type="text" class="form-control name-form" placeholder="Username *" required />
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control email-form" placeholder="Password *" required />
+                    <input name="password" type="password" class="form-control email-form" placeholder="Password *" required />
                 </div>
                 <div class="form-group">
-                    <input type="email" class="form-control email-form" placeholder="Email *" required />
+                    <input name="email" type="email" class="form-control email-form" placeholder="Email *" required />
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control email-form" placeholder="Address *" required />
+                    <input name="adderss" type="text" class="form-control email-form" placeholder="Address *" required />
                 </div>
                 <div class="form-group">
-                    <input type="number" class="form-control email-form" placeholder="Age" />
+                    <input name="age" type="number" class="form-control email-form" placeholder="Age" />
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btnSubmit" value="Register" />
+                    <input name="creditcard" type="text" class="form-control email-form" placeholder="Creditcard" />
+                </div>
+                <div class="form-group">
+                    <input name="username" type="submit" class="btnSubmit" value="Register" />
                 </div>
             </form>
         </div>

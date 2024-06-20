@@ -17,7 +17,7 @@ def login(username, user_password):
         if user:
             user_id, password = user
             if password == user_password:
-                return {'status': 200, 'user_id': user_id}
+                return {'status': 200, 'user': user}
             else:
                 return {'status': 400, 'message': 'Password does not match'}
         else:
@@ -58,9 +58,9 @@ def create_user(new_user):
                 new_user['user_age'],
                 new_user['password'])
             cursor.execute(query, values)
-            return {'status': 'success', 'message': 'User added successfully', 'new user': new_user}
+            return {'status': 200, 'message': 'User added successfully', 'new user': new_user}
         else:
-            return {'error': 'User is undefined'}
+            return {'status': 401}
 
 
 def update_user(updated_user):

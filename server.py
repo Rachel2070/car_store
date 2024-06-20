@@ -7,42 +7,52 @@ app = Flask(__name__, static_url_path='', static_folder='static', template_folde
 
 @app.route('/')
 def root():
-    return render_template('index.html')
+    return render_template('login.html')
+
 
 @app.route('/index.html')
-def fullroot():
-    return render_template('index.html')
+def home():
+    cars = car_model.get_all_cars()
+    return render_template('index.html', cars= cars)
 
 
 @app.route('/login.html', methods=['POST', 'GET'])
 def login():
     error = None
     if request.method == 'POST':
-        global username
         username = request.form['username']
         password = request.form['password']
-        res = user_model.is_student(username, password)
-        # return redirect(url_for('login'))
-        # elif user_model.login(username):
-        #     return redirect(url_for('teacher_post_task'))
-        # else:
-        #     return redirect(url_for('error_login'))
+        res = user_model.login(username, password)
+        if res['status'] == 200:
+            global user
+            user = res['user']
+            return redirect(url_for('home')) 
+        elif res['status'] == 400:
+            error = "Invalid credentials, please try again."
+        else:
+            return redirect(url_for('register'))
 
     return render_template('login.html', error=error)
+
+
 
 @app.route('/register.html', methods=['POST', 'GET'])
 def register():
     error = None
     if request.method == 'POST':
-        global username
         username = request.form['username']
         password = request.form['password']
-        res = user_model.is_student(username, password)
-        # return redirect(url_for('login'))
-        # elif user_model.login(username):
-        #     return redirect(url_for('teacher_post_task'))
-        # else:
-        #     return redirect(url_for('error_login'))
+        email = request.form['email']
+        adderss = request.form['adderss']
+        age = request.form['age']
+        creditcard = request.form['creditcard']
+        res = user_model.create_user({'user_name':username, 'password':password, 'user_email':email, 'user_address':adderss, 'user_age':age, 'credit_card':creditcard})
+        if res['status'] == 200:
+            global user
+            user = res['new user']
+            return redirect(url_for('home')) 
+        else:
+            error = "A problem occurred, please try again."
 
     return render_template('register.html', error=error)
 
