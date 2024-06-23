@@ -8,6 +8,26 @@
  Template: GARAGE
  */
 
+ .carousel-inner .item img {
+    width: 100%;
+    height: auto;
+    max-height: 500px; /* Set max-height to prevent images from being too tall */
+    object-fit: cover; /* Ensures the image covers the entire area without stretching */
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for better text visibility */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.featuredimage img {
+    width: 100%;
+    height: auto;
+    max-height: 300px; /* Set max-height to prevent images from being too tall */
+    object-fit: cover; /* Ensures the image covers the entire area without stretching */
+}
+
 
 .allcontain{
 	max-width: 1366px;
