@@ -57,6 +57,27 @@ def register():
     return render_template('register.html', error=error)
 
 
+@app.route('/carDetails', methods=['GET'])
+def carDetails():
+    car_id = request.args.get('car_id')
+    if car_id:
+        car = car_model.get_car_by_id(car_id)
+        if car:
+            car_data = {
+                'model': car[1],
+                'color': car[2],
+                'manufacturer': car[3],
+                'manufacturer_date': car[4],
+                'licence_num': car[5],
+                'price': car[6],
+                'num_seats': car[7],
+                'car_pic': car[8]
+            }
+            return render_template('carDetails.html', car=car_data)
+        else:
+            return "Car not found", 404
+    else:
+        return "Car ID not provided", 400
 
 # @app.route('/error_login.html')
 # def error_login():
