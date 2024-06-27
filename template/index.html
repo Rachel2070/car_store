@@ -83,7 +83,7 @@
 			<div class="carousel-inner" role="listbox">
 				{% for car in cars %}
 				<div class="item {% if loop.first %}active{% endif %}">
-					<img src="{{ car.car_pic }}" alt="{{ car.model }}" >
+					<img src="{{ car.car_pic }}" alt="{{ car.model }}">
 					<div class="carousel-caption">
 						<h2>{{ car.model }}</h2>
 						<p>Price: {{ car.price }} &euro;</p>
@@ -99,8 +99,75 @@
 				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 				<span class="sr-only">Next</span>
 			</a>
+
+			<!--_______________________________________ Search______________________________________ -->
+
+
+			<nav class="navbar navbar-default midle-nav">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed textcostume" data-toggle="collapse"
+						data-target="#navbarmidle" aria-expanded="false">
+						<h1>SEARCH TEXT</h1>
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+				<div class="collapse navbar-collapse" id="navbarmidle">
+					<div class="searchtxt">
+						<h1>SEARCH TEXT</h1>
+					</div>
+					<form class="navbar-form navbar-left searchformmargin" role="search">
+						<div class="form-group">
+							<input type="text" class="form-control searchform" placeholder="Enter Keyword">
+						</div>
+					</form>
+					<ul class="nav navbar-nav navbarborder">
+						<li class="li-category">
+							<a class="btn dropdown-toggle btn-costume" id="dropdownMenu1" data-toggle="dropdown"
+								aria-haspopup="true" aria-expanded="true">Manufacturer<span
+									class="glyphicon glyphicon-chevron-down downicon"></span></a>
+							<ul class="dropdown-menu" id="mydd">
+								{% for man in mans %}
+								<li><a href="#" class="dropdown-item">{{man.manufacturer_name}}</a></li>
+								{% endfor %}
+							</ul>
+						</li>
+						<li class="li-minyear"><a class="btn  dropdown-toggle btn-costume" id="dropdownMenu2"
+								data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Min Year <span
+									class="glyphicon glyphicon-chevron-down downicon"></span></a>
+							<ul class="dropdown-menu" id="mydd2">
+								<li><a href="#">1</a></li>
+								<li><a href="#">2</a></li>
+								<li><a href="#">3</a></li>
+							</ul>
+						</li>
+						<li class="li-maxyear"><a class="btn dropdown-toggle btn-costume" id="dropdownMenu3"
+								data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Max Year <span
+									class="glyphicon glyphicon-chevron-down downicon"></span></a>
+							<ul class="dropdown-menu" id="mydd3">
+								<li><a href="#">1900</a></li>
+								<li><a href="#">2000</a></li>
+								<li><a href="#">2016</a></li>
+							</ul>
+						</li>
+						<li class="li-slideprice">
+							<p> <label class="slidertxt" for="amount">Price </label>
+								<input class="priceslider" type="text" id="amount" readonly="readonly">
+							</p>
+							<div id="slider-range"></div>
+
+						</li>
+						<li class="li-search"> <button class="searchbutton"><span
+									class="glyphicon glyphicon-search "></span></button></li>
+					</ul>
+
+				</div>
+			</nav>
 		</div>
 	</div>
+
 	<!-- ____________________Featured Section ______________________________-->
 	<div class="allcontain">
 		<div class="feturedsection">
@@ -110,12 +177,12 @@
 		<div class="feturedimage">
 			<div class="row firstrow">
 				{% for car in cars %}
-				
+
 				<div class="row secondrow">
 					<div class="col-lg-6 costumcol colborder1">
 						<div class="row costumrow">
 							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 img1colon">
-								<img src="{{ car.car_pic }}" alt="{{ car.car_pic }}" >
+								<img src="{{ car.car_pic }}" alt="{{ car.car_pic }}">
 							</div>
 							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 txt1colon">
 								<div class="featurecontant">
@@ -182,6 +249,22 @@
 	<script type="text/javascript" src="source/js/myscript.js"></script>
 	<script type="text/javascript" src="source/bootstrap-3.3.6-dist/js/jquery.1.11.js"></script>
 	<script type="text/javascript" src="source/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', (event) => {
+			const dropdownItems = document.querySelectorAll('.dropdown-item');
+			const dropdownButton = document.getElementById('dropdownMenu1');
+			const dropdownIcon = dropdownButton.querySelector('.glyphicon');
+	
+			dropdownItems.forEach(item => {
+				item.addEventListener('click', (e) => {
+					e.preventDefault(); // Prevent the default anchor click behavior
+					const selectedText = e.target.textContent;
+					dropdownButton.childNodes[0].textContent = selectedText + ' ';
+					dropdownButton.appendChild(dropdownIcon); // Re-append the existing icon
+				});
+			});
+		});
+	</script>
 </body>
 
 </html>

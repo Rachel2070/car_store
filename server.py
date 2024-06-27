@@ -13,7 +13,8 @@ def root():
 @app.route('/index.html')
 def home():
     cars = car_model.get_all_cars()
-    return render_template('index.html', cars= cars)
+    mans = manufacturer_model.get_all_manufacturers()
+    return render_template('index.html', cars= cars, mans = mans)
 
 
 @app.route('/login.html', methods=['POST', 'GET'])
