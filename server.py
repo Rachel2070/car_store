@@ -29,10 +29,6 @@ def home():
     return render_template('index.html', cars=filteredCars, mans=mans, full_cars = cars)
 
     
-
-   
-
-
 @app.route('/login.html', methods=['POST', 'GET'])
 def login():
     error = None
