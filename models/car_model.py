@@ -85,15 +85,65 @@ def delete_car(car_id):
         return {'status': 'success', 'message': 'Car deleted successfully'}
 
 
-new_car = {
-    'car_id': 2011,
-    'model': 'Model d',
-    'manufacturer': 2,
-    'manufacturer_date': '2023-01-15',
-    'license_num': 'dtr882C5423',
-    'price': 30000,
-    'num_seats': 5,
-}
+def get_manufacturer_id(cursor, manufacturer_name):
+    query = "SELECT manufacturer_id FROM manufacturers WHERE manufacturer_name = ?"
+    cursor.execute(query, (manufacturer_name,))
+    result = cursor.fetchone()
+    return result[0] if result else None
+
+def search_car(parameters):
+    with pyodbc.connect(connection_str) as connection:
+        cursor = connection.cursor()
+        man = parameters.get('manufacturer', 'Manufacturer')
+        model = parameters.get('model', '')
+        price = parameters.get('price', '')
+
+        conditions = []
+        values = []
+
+        if man != 'Manufacturer':
+            manufacturer_id = get_manufacturer_id(cursor, man)
+            if manufacturer_id:
+                conditions.append("manufacturer = ?")
+                values.append(manufacturer_id)
+            else:
+                print("Manufacturer not found")
+                return []
+
+        if model:
+            conditions.append("model = ?")
+            values.append(model)
+        if price:
+            conditions.append("price <= ?")
+            values.append(price)
+
+        query = "SELECT * FROM cars"
+        if conditions:
+            query += " WHERE " + " AND ".join(conditions)
+
+        print(query)  # For debugging purposes
+        cursor.execute(query, values)
+        results = cursor.fetchall()
+        
+        return results
+
+
+
+
+# obj = {'manufacturer': 'Toyota', 'model':'', 'price':50000000000}
+# res = search_car(obj)
+# print(res)
+
+
+# new_car = {
+#     'car_id': 2011,
+#     'model': 'Model d',
+#     'manufacturer': 2,
+#     'manufacturer_date': '2023-01-15',
+#     'license_num': 'dtr882C5423',
+#     'price': 30000,
+#     'num_seats': 5,
+# }
 
 # result = create_car(new_car)
 # print(result)

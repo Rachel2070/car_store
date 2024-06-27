@@ -81,7 +81,7 @@
 	<div class="allcontain">
 		<div id="carousel-up" class="carousel slide" data-ride="carousel">
 			<div class="carousel-inner" role="listbox">
-				{% for car in cars %}
+				{% for car in full_cars %}
 				<div class="item {% if loop.first %}active{% endif %}">
 					<img src="{{ car.car_pic }}" alt="{{ car.model }}">
 					<div class="carousel-caption">
@@ -101,13 +101,10 @@
 			</a>
 
 			<!--_______________________________________ Search______________________________________ -->
-
-
 			<nav class="navbar navbar-default midle-nav">
 				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed textcostume" data-toggle="collapse"
-						data-target="#navbarmidle" aria-expanded="false">
-						<h1>SEARCH TEXT</h1>
+					<button type="button" class="navbar-toggle collapsed textcostume" data-toggle="collapse" data-target="#navbarmidle" aria-expanded="false">
+							<h1>SEARCH TEXT</h1>
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
@@ -118,53 +115,44 @@
 					<div class="searchtxt">
 						<h1>SEARCH TEXT</h1>
 					</div>
-					<form class="navbar-form navbar-left searchformmargin" role="search">
+					<form class="navbar-form navbar-left searchformmargin" role="search" method="GET" action="/index.html">
 						<div class="form-group">
-							<input type="text" class="form-control searchform" placeholder="Enter Keyword">
+							<input type="text" class="form-control searchform" name='model' placeholder="Model">
 						</div>
-					</form>
-					<ul class="nav navbar-nav navbarborder">
-						<li class="li-category">
-							<a class="btn dropdown-toggle btn-costume" id="dropdownMenu1" data-toggle="dropdown"
-								aria-haspopup="true" aria-expanded="true">Manufacturer<span
-									class="glyphicon glyphicon-chevron-down downicon"></span></a>
-							<ul class="dropdown-menu" id="mydd">
+						<div class="form-group">
+							<select class="form-control searchform" name="manufacturer">
+								<option value="Manufacturer">Manufacturer</option>
 								{% for man in mans %}
-								<li><a href="#" class="dropdown-item">{{man.manufacturer_name}}</a></li>
+								<option value="{{ man.manufacturer_name }}">{{ man.manufacturer_name }}</option>
 								{% endfor %}
-							</ul>
-						</li>
-						<li class="li-minyear"><a class="btn  dropdown-toggle btn-costume" id="dropdownMenu2"
-								data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Min Year <span
-									class="glyphicon glyphicon-chevron-down downicon"></span></a>
-							<ul class="dropdown-menu" id="mydd2">
-								<li><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-							</ul>
-						</li>
-						<li class="li-maxyear"><a class="btn dropdown-toggle btn-costume" id="dropdownMenu3"
-								data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Max Year <span
-									class="glyphicon glyphicon-chevron-down downicon"></span></a>
-							<ul class="dropdown-menu" id="mydd3">
-								<li><a href="#">1900</a></li>
-								<li><a href="#">2000</a></li>
-								<li><a href="#">2016</a></li>
-							</ul>
-						</li>
-						<li class="li-slideprice">
-							<p> <label class="slidertxt" for="amount">Price </label>
-								<input class="priceslider" type="text" id="amount" readonly="readonly">
-							</p>
-							<div id="slider-range"></div>
-
-						</li>
-						<li class="li-search"> <button class="searchbutton"><span
-									class="glyphicon glyphicon-search "></span></button></li>
-					</ul>
-
+							</select>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control searchform" name="price" placeholder="Max Price">
+						</div>
+						<button type="submit" class="btn btn-default searchbutton">
+							<span class="glyphicon glyphicon-search"></span>
+						</button>
+					</form>
 				</div>
 			</nav>
+
+			<script>
+				document.addEventListener('DOMContentLoaded', (event) => {
+					const dropdownItems = document.querySelectorAll('.dropdown-item');
+					const dropdownButton = document.getElementById('dropdownMenu1');
+					const dropdownIcon = dropdownButton.querySelector('.glyphicon');
+			
+					dropdownItems.forEach(item => {
+						item.addEventListener('click', (e) => {
+							e.preventDefault(); // Prevent the default anchor click behavior
+							const selectedText = e.target.textContent;
+							dropdownButton.childNodes[0].textContent = selectedText + ' ';
+							dropdownButton.appendChild(dropdownIcon); // Re-append the existing icon
+						});
+					});
+				});
+			</script>
 		</div>
 	</div>
 
@@ -254,7 +242,7 @@
 			const dropdownItems = document.querySelectorAll('.dropdown-item');
 			const dropdownButton = document.getElementById('dropdownMenu1');
 			const dropdownIcon = dropdownButton.querySelector('.glyphicon');
-	
+
 			dropdownItems.forEach(item => {
 				item.addEventListener('click', (e) => {
 					e.preventDefault(); // Prevent the default anchor click behavior

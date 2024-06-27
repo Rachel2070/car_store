@@ -10,11 +10,27 @@ def root():
     return render_template('login.html')
 
 
-@app.route('/index.html')
+@app.route('/index.html', methods = ['GET'])
 def home():
+    parameters = request.args.to_dict()
     cars = car_model.get_all_cars()
     mans = manufacturer_model.get_all_manufacturers()
-    return render_template('index.html', cars= cars, mans = mans)
+    search_parameters = {
+        'manufacturer': request.args.get('manufacturer'),
+        'model': request.args.get('model'),
+        'price': request.args.get('price')
+    }
+
+    if any(search_parameters.values()):
+        filteredCars = car_model.search_car(search_parameters)
+    else:
+        filteredCars = cars
+   
+    return render_template('index.html', cars=filteredCars, mans=mans, full_cars = cars)
+
+    
+
+   
 
 
 @app.route('/login.html', methods=['POST', 'GET'])
