@@ -4,6 +4,45 @@
     <meta charset="UTF-8">
     <title>Register - Garage</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .logreg {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .logreg li {
+            display: inline;
+            margin-right: 10px;
+        }
+
+        .logreg a {
+            text-decoration: none;
+            color: #000;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .message {
+            display: none;
+            position: fixed;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000;
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 18px;
+            white-space: nowrap;
+            text-align: center;
+            z-index: 1000;
+            border: 2px solid #FFD700; /* Gold border */
+        }
+
+        .message span {
+            color: #FFD700; /* Gold text */
+        }
+    </style>
     <link rel="stylesheet" type="text/css" href="source/bootstrap-3.3.6-dist/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="source/font-awesome-4.5.0/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="style/mystyle.css">
@@ -40,7 +79,10 @@
         </div>
         <div class="collapse navbar-collapse" id="upmenu">
             <ul class="nav navbar-nav" id="navbarontop">
-                <li><a href="index.html">HOME</a></li>
+                <li>
+                    <a href="index.html" class="disabled-link">HOME</a>
+                    <div class="message">You must first register on the site.</div>
+                </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CATEGORIES <span class="caret"></span></a>
                     <ul class="dropdown-menu dropdowncostume">
@@ -107,5 +149,20 @@
 <script type="text/javascript" src="source/bootstrap-3.3.6-dist/js/jquery.js"></script>
 <script type="text/javascript" src="source/js/myscript.js"></script>
 <script type="text/javascript" src="source/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<script>
+    document.querySelectorAll('.disabled-link').forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the default link action
+
+            const message = this.nextElementSibling;
+            message.style.display = 'block';
+
+            // Hide the message after 3 seconds
+            setTimeout(() => {
+                message.style.display = 'none';
+            }, 3000);
+        });
+    });
+</script>
 </body>
 </html>
