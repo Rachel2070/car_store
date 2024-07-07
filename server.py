@@ -48,7 +48,6 @@ def login():
     return render_template('login.html', error=error)
 
 
-
 @app.route('/register.html', methods=['POST', 'GET'])
 def register():
     error = None
@@ -87,11 +86,39 @@ def carDetails():
                 'num_seats': car[7],
                 'car_pic': car[8]
             }
-            return render_template('carDetails.html', car=car_data)
+            return render_template('carDetails.html', car=car_data, car_id=car_id)
         else:
             return "Car not found", 404
     else:
         return "Car ID not provided", 400
+
+
+@app.route('/updateCar.html', methods=['POST', 'GET'])
+def updateCar():
+    car_id = request.args.get('car_id')
+    error = None
+    if car_id:
+        car = car_model.get_car_by_id(car_id)
+    if request.method == 'POST':
+
+        updated_car = {
+            'car_id':request.form['car_id'],
+            'model': request.form['model'],
+            'color': request.form['color'],
+            'manufacturer': request.form['manufacturer'],
+            'manufacturer_date': request.form['manufacturer_date'],
+            'license_num': request.form['license_num'],
+            'price': request.form['price'],
+            'num_seats': request.form['num_seats'],
+            'car_pic' : request.form['car_pic']
+        }
+        res = car_model.update_car(updated_car=updated_car)
+        if res['status'] == 200:
+            return redirect(url_for('carDetails', car_id=updated_car['car_id']))
+        else:
+            error = "A problem occurred, please try again."
+    return render_template('updateCar.html', error=error, car=car)
+
 
 
 if __name__ == '__main__':
