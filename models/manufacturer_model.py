@@ -1,9 +1,5 @@
 import pyodbc
 
-connection_str = """DRIVER={SQL Server};
-        SERVER=MYCOMP;
-        DATABASE=carStore"""
-
 
 def get_all_manufacturers():
     with pyodbc.connect(connection_str) as connection:

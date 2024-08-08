@@ -12,7 +12,7 @@ def root():
 
 @app.route('/index.html', methods = ['GET'])
 def home():
-    parameters = request.args.to_dict()
+    # parameters = request.args.to_dict()
     cars = car_model.get_all_cars()
     mans = manufacturer_model.get_all_manufacturers()
     search_parameters = {

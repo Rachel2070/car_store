@@ -1,8 +1,5 @@
 import pyodbc
 
-connection_str = """DRIVER={SQL Server};
-        SERVER=MYCOMP;
-        DATABASE=carStore"""
 
 
 def get_all_cars():
@@ -16,7 +13,6 @@ def get_all_cars():
 def get_car_by_id(car_id):
     with pyodbc.connect(connection_str) as connection:
         cursor = connection.cursor()
-        print(car_id)
         query = f"select * from cars where car_id = '{car_id}'"
         cursor.execute(query)
         return cursor.fetchone()

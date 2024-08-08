@@ -1,9 +1,5 @@
 import pyodbc
 
-connection_str = """DRIVER={SQL Server};
-        SERVER=MYCOMP;
-        DATABASE=carStore"""
-
 
 def login(username, user_password):
     with pyodbc.connect(connection_str) as connection:
